@@ -29,8 +29,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cngrgroup.DirectoryWatcher</groupId>
     <artifactId>Directory-Watcher</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <version>0.9.2-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>Directory-Watcher</name>
     <description>DirectoryWatcher is designed to watch a given directory, optionally recursively, for changes to the
         children files and then execute a defined command.
