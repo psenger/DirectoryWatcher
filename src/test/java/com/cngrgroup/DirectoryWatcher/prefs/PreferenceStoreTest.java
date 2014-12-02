@@ -45,7 +45,7 @@ public class PreferenceStoreTest {
 
     @Before
     public void before() throws Exception {
-        previousValue = PreferenceStore.overrideFileName("c:\\TestFile.txt");
+        previousValue = PreferenceStore.overrideFileName("TestFile.txt");
     }
 
     @After
