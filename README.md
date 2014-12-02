@@ -1,4 +1,4 @@
 DirectoryWatcher
 ================
 
-Watch a Directory recursively for changes and then execute a command.
+DirectoryWatcher is designed to watch a given directory, optionally recursively, for changes to the children files and then execute a defined command.

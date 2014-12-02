@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License (MIT)
+  ~
+  ~ Copyright (c) today.year. Philip A Senger
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cngrgroup.DirectoryWatcher</groupId>
+    <artifactId>Directory-Watcher</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Directory-Watcher</name>
+    <description>DirectoryWatcher is designed to watch a given directory, optionally recursively, for changes to the
+        children files and then execute a defined command.
+    </description>
+    <url>http://psenger.github.io/DirectoryWatcher</url>
+    <inceptionYear>2014</inceptionYear>
+    <licenses>
+        <license>
+            <name>The MIT License (MIT)</name>
+            <distribution>repo</distribution>
+            <comments>
+                The MIT License (MIT)
+
+                Copyright (c) today.year. Philip A Senger
+
+                Permission is hereby granted, free of charge, to any person obtaining a copy
+                of this software and associated documentation files (the "Software"), to deal
+                in the Software without restriction, including without limitation the rights
+                to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                copies of the Software, and to permit persons to whom the Software is
+                furnished to do so, subject to the following conditions:
+
+                The above copyright notice and this permission notice shall be included in all
+                copies or substantial portions of the Software.
+
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                SOFTWARE.
+            </comments>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>psenger</id>
+            <name>Philip A Senger</name>
+            <email>psenger@gmail.com</email>
+            <url>http://au.linkedin.com/in/philipsenger/</url>
+            <organization>CNGR Group, LLC</organization>
+            <organizationUrl>http://www.cngrgroup.com/</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+                <role>broom pusher</role>
+                <role>whipping boy</role>
+            </roles>
+            <timezone>+11</timezone>
+        </developer>
+    </developers>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/psenger/DirectoryWatcher/issues/</url>
+    </issueManagement>
+    <prerequisites>
+        <maven>2.0.6</maven>
+    </prerequisites>
+    <ciManagement>
+        <system>Travis CI</system>
+        <url>http://travis-ci.org/#!/disy/perfidix</url>
+    </ciManagement>
+    <scm>
+        <connection>scm:git:ssh://github.com/psenger/DirectoryWatcher.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/psenger/DirectoryWatcher.git</developerConnection>
+        <url>https://github.com/psenger/DirectoryWatcher</url>
+        <tag>HEAD</tag>
+    </scm>
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <groups>com.cngrgroup.DirectoryWatcher.HeadLessTest</groups>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <preparationGoals>clean verify</preparationGoals>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+
+                    <archive>
+                        <addMavenDescriptor/>
+                        <compress/>
+                        <forced/>
+                        <index>true</index>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <addDefaultImplementationEntries/>
+                            <addDefaultSpecificationEntries/>
+                            <addExtensions/>
+                            <classpathLayoutType/>
+                            <classpathMavenRepositoryLayout/>
+                            <classpathPrefix/>
+                            <customClasspathLayout/>
+                            <mainClass/>
+                            <packageName/>
+                            <useUniqueVersions/>
+                        </manifest>
+                        <manifestEntries>
+                            <Main-Class>com.cngrgroup.DirectoryWatcher.Watcher</Main-Class>
+                        </manifestEntries>
+                        <manifestFile/>
+                        <manifestSections>
+                            <manifestSection>
+                                <name>Watcher</name>
+                                <manifestEntries>
+                                    <mode>production</mode>
+                                    <url>${project.url}</url>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
+                        <pomPropertiesFile/>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
