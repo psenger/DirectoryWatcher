@@ -55,7 +55,6 @@ public class TimerLatch extends Observable {
     }
 
     public void trigger() {
-        System.out.println("TimerLatch.trigger");
         lastTrigger = now();
         if (timer == null && this.countObservers() != 0) {
             scheduleTimerTask();
@@ -64,7 +63,6 @@ public class TimerLatch extends Observable {
 
     private void scheduleTimerTask() {
         timer = new Timer();
-        System.out.println("TimerLatch.scheduleTimerTask:sensitivity = " + sensitivity);
         timer.schedule(new MyTimerTask(this), sensitivity);
     }
 
@@ -81,10 +79,10 @@ public class TimerLatch extends Observable {
 
         @Override
         public void run() {
-            System.out.println("MyTimerTask.run:" + lastTrigger + ":" + (now() - sensitivity));
             if (lastTrigger <= (now() - sensitivity)) {
                 timerLatch.setChanged();
                 timerLatch.notifyObservers();
+                timer = null;
             } else {
                 timerLatch.scheduleTimerTask();
             }

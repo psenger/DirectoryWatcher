@@ -25,12 +25,10 @@
 package com.cngrgroup.DirectoryWatcher;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * The worker actually executes the command.
@@ -60,34 +58,28 @@ public class Worker implements Runnable {
 
     @Override
     public void run() {
-//        System.out.println("Start");
-//        PrintWriter writer = null;
+        System.out.println("Start");
+        Process process = null;
         try {
             WorkerControlState.getInstance().setState(WorkerControlState.State.RUNNING);
-//            writer = new PrintWriter("c:\\Watcher.log", "UTF-8");
-            List<String> strings = new ArrayList<>(Arrays.asList(commands));
-            ProcessBuilder processBuilder = new ProcessBuilder(strings);
-            processBuilder.directory(new File(workingDir));
-            Process process = processBuilder.start();
-            InputStream is = process.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String line;
-//            while ((line = br.readLine()) != null) {
-//                writer.println(line);
-//            }
-        } catch (Exception e) {
+            process = new ProcessBuilder(this.commands).start();
+            try (
+                    InputStream is = process.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader br = new BufferedReader(isr)
+            ) {
+                System.out.printf("Output of running %s is:", Arrays.toString(this.commands));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    System.out.println(line);
+                }
+                System.out.println("");
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
-//            try {
-//                if (writer != null) {
-//                    writer.close();
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
             WorkerControlState.getInstance().setState(WorkerControlState.State.WAITING);
-//            System.out.println("Done");
+            System.out.println("Done");
         }
     }
 }
